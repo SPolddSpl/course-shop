@@ -71,14 +71,37 @@ class Register extends React.Component {
         }
         return (
             <div>
-                <h1>Register</h1>
-                <input type="text" placeholder="Login" onChange={this.inputChangeHandle} />
-                <input type="password" placeholder="Password" onChange={this.inputChangeHandle} />
-                <input type="file" placeholder="Avatar" onChange={this.inputChangeHandle} />
-                <button type="submit" onClick={this.sumbitHandle}>Log In</button>
+                <div className="container">
+                    <div className="row justify-content-lg-center">
+                        <div className="col-sm-12 col-md-auto">
+                            <h1 className="display-1">Register</h1>
+                        </div>
+                    </div>
+                    <div className="row justify-content-md-center">
+                        <div className="col-sm-12 col-md-auto col-lg-10 mt-3">
+                            <input type="text" className="form-control" placeholder="Login" onChange={this.inputChangeHandle} />
+                        </div>
+                    </div>
+                    <div className="row justify-content-md-center">
+                        <div className="col-sm-12 col-md-auto col-lg-10 mt-3">
+                            <input type="password" className="form-control" placeholder="Password" onChange={this.inputChangeHandle} />
+                        </div>
+                    </div>
+                    <div className="row justify-content-md-center">
+                        <div className="col-sm-12 col-md-auto col-lg-10 mt-3">
+                            <input type="file" className="form-control form-control-lg" placeholder="Avatar" onChange={this.inputChangeHandle} />
+                        </div>
+                    </div>
+                    <div className="row justify-content-md-center mt-3">
+                        <div className="col-sm-12 col-md-auto">
+                            <button className="btn btn-lg btn-primary" type="submit" onClick={this.sumbitHandle}>Register</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         )
     }
+
 
 }
 

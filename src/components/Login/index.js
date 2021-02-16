@@ -1,5 +1,6 @@
 import axios from 'axios';
 import * as React from 'react';
+import { Redirect } from 'react-router-dom';
 
 
 class Login extends React.Component {
@@ -44,16 +45,36 @@ class Login extends React.Component {
 
     render() {
         if (this.state.isLogged) {
-            return <div>Logged In</div>
+            return <Redirect to="/home" />
         }
         return (
             <div>
-                <h1>Log In</h1>
-                <input type="text" placeholder="Login" onChange={this.inputChangeHandle} />
-                <input type="password" placeholder="Password" onChange={this.inputChangeHandle} />
-                <button type="submit" onClick={this.submitHandle}>Log In</button>
-            </div>)
+                <div className="container">
+                    <div className="row justify-content-lg-center">
+                        <div className="col-sm-12 col-md-auto">
+                            <h1 className="display-1">Log In</h1>
+                        </div>
+                    </div>
+                    <div className="row justify-content-md-center">
+                        <div className="col-sm-12 col-md-auto col-lg-10 mt-3">
+                            <input type="text" className="form-control" placeholder="Login" onChange={this.inputChangeHandle} />
+                        </div>
+                    </div>
+                    <div className="row justify-content-md-center">
+                        <div className="col-sm-12 col-md-auto col-lg-10 mt-3">
+                            <input type="password" className="form-control" placeholder="Password" onChange={this.inputChangeHandle} />
+                        </div>
+                    </div>
+                    <div className="row justify-content-md-center mt-3">
+                        <div className="col-sm-12 col-md-auto">
+                            <button className="btn btn-lg btn-primary" type="submit" onClick={this.submitHandle}>Log In</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        )
     }
 }
+
 
 export default Login;

@@ -24,12 +24,7 @@ class Welcome extends React.Component {
 
 
     render() {
-        return (
-            <BrowserRouter>
-                <Redirect to={this.state.route} />
-            </BrowserRouter>
-
-        )
+        return (<Redirect to={this.state.route} />)
     }
 
 }
