@@ -1,13 +1,14 @@
 import axios from 'axios';
 import * as React from 'react';
 import { Redirect } from 'react-router-dom';
+import Requests from '../../services/user-service/services';
 
 
 class Login extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { user: { login: '', password: '', isLogged: false } };
-
+        this.state = { user: { login: '', password: '', isLogged: null } };
+        this.client = new Requests();
         this.inputChangeHandle = this.inputChangeHandle.bind(this)
         this.submitHandle = this.submitHandle.bind(this)
     }
@@ -27,20 +28,16 @@ class Login extends React.Component {
         }
     }
 
-    submitHandle() {
+    async submitHandle() {
         const data = {
             login: this.state.user.login,
             password: this.state.user.password
         }
 
-        axios.get(`https://6025022636244d001797b4c4.mockapi.io/shop/users?search=${data.login}`).then((res) => {
-            if (res.data) {
-
-                if (res.data[0].password === data.password) {
-                    this.setState({ isLogged: true });
-                }
-            }
-        })
+        const response = await this.client.logIn(data);
+        if (response === true) {
+            this.setState({ isLogged: response });
+        }
     }
 
     render() {

@@ -1,12 +1,14 @@
 import * as React from 'react';
 import { Redirect } from "react-router-dom";
 import axios from 'axios';
+import Requests from '../../services/user-service/services';
 
 class Register extends React.Component {
     constructor(props) {
         super(props);
         this.state = { user: {}, avatar: '', isRegistered: false }
         this.sumbitHandle = this.sumbitHandle.bind(this);
+        this.client = new Requests();
         this.inputChangeHandle = this.inputChangeHandle.bind(this);
     }
 
@@ -39,7 +41,7 @@ class Register extends React.Component {
     }
 
 
-    sumbitHandle() {
+    async sumbitHandle() {
         const data = {
             login: this.state.user.login,
             createdAt: new Date().toLocaleString(),
@@ -47,22 +49,11 @@ class Register extends React.Component {
             avatar: this.state.avatar
         }
 
-        axios.post('https://6025022636244d001797b4c4.mockapi.io/shop/users', data).then((res) => {
-            const resBody = res.data;
-            if (resBody) {
-                const newUser = {
-                    id: resBody.id,
-                    login: resBody.login,
-                    createdAt: resBody.createdAt,
-                    avatar: resBody.avatar
-                }
+        const response = await this.client.createUser(data);
+        console.log(response);
 
-                localStorage.setItem('user', JSON.stringify(newUser));
-                this.setState({ isRegistered: true });
-            }
-
-        })
-
+        localStorage.setItem('user', JSON.stringify(response));
+        this.setState({ isRegistered: true });
     }
 
     render() {
