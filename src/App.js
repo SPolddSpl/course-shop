@@ -1,33 +1,34 @@
 import logo from "./logo.svg";
 import "./App.css";
 import { useEffect, useState } from "react";
-import Welcome from "./components/Welcome";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Register from "./components/Register";
-import Login from "./components/Login";
-import Home from "./components/Home";
+import { BrowserRouter as Router, Switch, Route, Link, Redirect } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import bootstrap from "bootstrap";
-import Products from "./components/Products";
+import Login from "./components/Login";
+import Register from "./components/Register";
+import Home from "./components/Home";
 
 function App() {
+  const [route, setRoute] = useState('login');
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (user) {
+      setRoute('login');
+    } else {
+      setRoute('register')
+    }
+  }, [])
   return (
-    <Router>
-      <Switch>
-        <Route path="/login">
-          <Login />
-        </Route>
-        <Route path="/register">
-          <Register />
-        </Route>
-        <Route path="/home">
-          <Home />
-        </Route>
-        <Route path="/">
-          <Welcome />
-        </Route>
-      </Switch>
-    </Router>
+    <>
+      <Router>
+        <Redirect to={route} />
+        <Switch>
+          <Route path="/login" component={Login} />
+          <Route path="/register" component={Register} />
+          <Route path="/home" component={Home} />
+        </Switch>
+      </Router>
+    </>
   );
 }
 

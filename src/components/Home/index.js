@@ -1,54 +1,62 @@
-import * as React from 'react';
-import { Redirect } from 'react-router-dom';
-import '../Home/index.css';
+import React, { useState, useEffect } from 'react';
+import { Link, Route, Switch, useHistory, useRouteMatch } from 'react-router-dom';
+import Login from '../Login';
 import Products from '../Products';
 
-export default class Home extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = { user: JSON.parse(localStorage.getItem('user')), route: '' }
-        this.setRoute = this.setRoute.bind(this);
-    }
+function Home() {
+    const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')));
+    let { path, url } = useRouteMatch();
 
-    setRoute(route) {
-        this.setState({ route: route });
-    }
-
-    render() {
-        return (<>
-
+    useEffect(() => {
+        console.log(path)
+        console.log(url)
+    }, [path]);
+    return (
+        <>
             <nav className="navbar navbar-expand-lg navbar-light bg-light">
                 <div className="container-fluid">
-
-                    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+                    <a className="navbar-brand" href="#">
+                        <img src={user.avatar} className="rounded-circle" width="30" height="30" />
+                    </a>
+                    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
                     </button>
-                    <a className="navbar-brand" href="#">
-                        <img src={this.state.user.avatar} alt="" width="50" height="50" className="d-inline-block rounded-circle align-center mr-5" />
-                        {this.state.user.login}
-                    </a>
-
-                    <div className="collapse navbar-collapse" id="navbarTogglerDemo03">
+                    <div className="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                             <li className="nav-item">
-                                <a className="nav-link" onClick={() => this.setRoute('/home/products')}>Products</a>
+                                <a className="nav-link active" aria-current="page" href="#">{user.login}</a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="#">Cart</a>
+                                <Link className="nav-link" to={`${url}/products`} >Login</Link>
+                            </li>
+                            <li className="nav-item dropdown">
+                                <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Dropdown
+                </a>
+                                <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li><a className="dropdown-item" href="#">Action</a></li>
+                                    <li><a className="dropdown-item" href="#">Another action</a></li>
+                                    <li><hr className="dropdown-divider" /></li>
+                                    <li><a className="dropdown-item" href="#">Something else here</a></li>
+                                </ul>
                             </li>
                         </ul>
+                        <form className="d-flex">
+                            <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
+                            <button className="btn btn-outline-success" type="submit">Search</button>
+                        </form>
                     </div>
                 </div>
             </nav>
-            <div>
-                {this.state.route == '/home/products' ? <Products /> : ''}
+
+            <div className="container-fluid">
+                <Switch>
+                    <Route path={`${path}/products`} component={Products} />
+                </Switch>
             </div>
         </>
-        )
-    }
-
+    )
 }
 
 
-
-
+export default Home;

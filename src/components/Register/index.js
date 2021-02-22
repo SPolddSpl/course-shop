@@ -1,99 +1,41 @@
-import * as React from 'react';
-import { Redirect } from "react-router-dom";
-import axios from 'axios';
-import Requests from '../../services/user-service/services';
+import React from 'react';
 
-class Register extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = { user: {}, avatar: '', isRegistered: false }
-        this.sumbitHandle = this.sumbitHandle.bind(this);
-        this.client = new Requests();
-        this.inputChangeHandle = this.inputChangeHandle.bind(this);
-    }
+function Register() {
 
-    async inputChangeHandle(e) {
-        const inputVal = e.target.value;
-        const inputName = e.target.placeholder;
-        const avatar = e.target.files;
-
-        switch (inputName) {
-            case 'Login':
-                this.setState({ user: { login: inputVal, password: this.state.user.password } });
-                break;
-            case 'Password':
-                this.setState({ user: { login: this.state.user.login, password: inputVal } });
-                break;
-            case 'Avatar':
-                let base64File = await this.getBase64(avatar[0]);
-                this.setState({ avatar: base64File });
-                break;
-        }
-    }
-
-    getBase64(file) {
-        return new Promise((resolve, reject) => {
-            const reader = new FileReader();
-            reader.readAsDataURL(file);
-            reader.onload = () => resolve(reader.result);
-            reader.onerror = error => reject(error);
-        });
-    }
-
-
-    async sumbitHandle() {
-        const data = {
-            login: this.state.user.login,
-            createdAt: new Date().toLocaleString(),
-            password: this.state.user.password,
-            avatar: this.state.avatar
-        }
-
-        const response = await this.client.createUser(data);
-        console.log(response);
-
-        localStorage.setItem('user', JSON.stringify(response));
-        this.setState({ isRegistered: true });
-    }
-
-    render() {
-        if (this.state.isRegistered) {
-            return <Redirect to="/Login" />
-        }
-        return (
+    return (
+        <>
             <div>
                 <div className="container">
                     <div className="row justify-content-lg-center">
-                        <div className="col-sm-12 col-md-auto">
+                        <div className="col-sm-12 col-md-auto  d-flex justify-content-center">
                             <h1 className="display-1">Register</h1>
                         </div>
                     </div>
                     <div className="row justify-content-md-center">
                         <div className="col-sm-12 col-md-auto col-lg-10 mt-3">
-                            <input type="text" className="form-control" placeholder="Login" onChange={this.inputChangeHandle} />
+                            <input type="text" className="form-control" placeholder="Login" />
                         </div>
                     </div>
                     <div className="row justify-content-md-center">
                         <div className="col-sm-12 col-md-auto col-lg-10 mt-3">
-                            <input type="password" className="form-control" placeholder="Password" onChange={this.inputChangeHandle} />
+                            <input type="password" className="form-control" placeholder="Password" />
                         </div>
                     </div>
                     <div className="row justify-content-md-center">
                         <div className="col-sm-12 col-md-auto col-lg-10 mt-3">
-                            <input type="file" className="form-control form-control-lg" placeholder="Avatar" onChange={this.inputChangeHandle} />
+                            <input type="file" className="form-control form-control-lg" placeholder="Avatar" />
                         </div>
                     </div>
                     <div className="row justify-content-md-center mt-3">
-                        <div className="col-sm-12 col-md-auto">
-                            <button className="btn btn-lg btn-primary" type="submit" onClick={this.sumbitHandle}>Register</button>
+                        <div className="col-sm-12 col-md-auto  d-flex justify-content-center">
+                            <button className="btn btn-lg btn-primary" type="submit">Register</button>
                         </div>
                     </div>
                 </div>
             </div>
-        )
-    }
-
-
+        </>
+    )
 }
+
 
 export default Register;
