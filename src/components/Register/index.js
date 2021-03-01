@@ -62,18 +62,27 @@ function Register() {
     let service = new UserService();
 
     async function handleAvatarUpload(file) {
-        setAvatar(await getBase64(file))
+        setAvatar(file)
     }
 
     async function submit() {
         const data = {
             login,
-            password,
-            avatar
+            password
         }
+
+        const fd = new FormData();
+        fd.append('file', avatar);
+
         let response = await service.registerUser(data);
         if (JSON.parse(localStorage.getItem('user'))) {
-            setRegisterComplete(true);
+            let avatarRes = await service.uploadFile(fd, response._id);
+            if(avatarRes){
+                let avatarPath = await service.updateUserAvatar({userId: avatarRes, fileEx: ''});
+                console.log(avatarPath)
+                localStorage.setItem('avatar', avatarPath.value);
+                setRegisterComplete(true);
+            }
         }
     }
 

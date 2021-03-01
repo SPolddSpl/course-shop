@@ -49,6 +49,33 @@ class UserService {
         }
     }
 
+    getFile(filePath) {
+        return `${this.basePath}/files/${filePath}`
+    }
+
+    async uploadFile(formData, userId) {
+        try {
+            const res = await axios.post(`${this.basePath}/files/upload/${userId}`, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            })
+
+            return res.data;
+        } catch (e) {
+            return e;
+        }
+    }
+
+    async updateUserAvatar(user) {
+        try {
+            const res = await axios.post(`${this.basePath}/user/updateAvatar`, user);
+            return res.data;
+        } catch (e) {
+            return e;
+        }
+    }
+
 }
 
 export default UserService;

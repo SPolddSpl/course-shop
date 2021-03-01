@@ -104,6 +104,7 @@ function Home() {
     const [open, setOpen] = useState(false);
 
     const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')));
+    const [avatar, setAvatar] = useState(localStorage.getItem('avatar'));
     let { path, url } = useRouteMatch();
     const [menuItems, setMenuItems] = useState(JSON.parse(localStorage.getItem('menuItems')));
     const handleDrawerOpen = () => {
@@ -138,7 +139,7 @@ function Home() {
                         <Typography variant="h6" noWrap>
                             {user.login}
                         </Typography>
-                        <Avatar alt="User Avatar" src={user.avatar} onClick={(e) => { console.log(`Avatar clicked`) }} />
+                        <Avatar alt="User Avatar" src={service.getFile(avatar)} onClick={(e) => { console.log(`Avatar clicked`) }} />
                     </div>
                 </Toolbar>
             </AppBar>

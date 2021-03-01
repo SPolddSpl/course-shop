@@ -1,9 +1,22 @@
-import React from 'react';
-
+import React, { useEffect, useState } from 'react';
+import UserService from '../../services/user-service';
 function Products() {
-    return(
+    const [filePath, setFilePath] = useState('');
+    const [img, setImg] = useState('');
+    const service = new UserService()
+    useEffect(() => {
+    }, []);
+
+    function submitHandle() {
+        service.getFile(filePath).then((res)=> {
+            setImg(res);
+        })
+    }
+    return (
         <>
-            <h1>Products</h1>
+            <input onChange={(e)=> {setFilePath(e.target.value)}} />
+            <button onClick={submitHandle}>Click</button>
+            <img src={`http://localhost:3000/files/${filePath}`}/>
         </>
     )
 }
