@@ -13,7 +13,7 @@ function App() {
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('user'));
     if (user) {
-      setRoute('login');
+      setRoute('/home');
     } else {
       setRoute('register')
     }

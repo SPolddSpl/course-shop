@@ -1,5 +1,4 @@
 import axios from 'axios';
-
 class UserService {
     constructor(props) {
         this.basePath = 'http://localhost:3000';
@@ -74,6 +73,11 @@ class UserService {
         } catch (e) {
             return e;
         }
+    }
+
+    async getProducts() {
+        const res = await axios.get(`https://jsonplaceholder.typicode.com/todos`);
+        return res.data;
     }
 
 }

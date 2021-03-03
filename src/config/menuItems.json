@@ -1,0 +1,18 @@
+{
+    "manager": [],
+    "user": [{
+            "IconName": "MailIcon",
+            "ImportName": "mail",
+            "ItemName": "Mail",
+            "Path": "/products",
+            "PathName": "Products"
+        },
+        {
+            "IconName": "TocIcon",
+            "ImportName": "toc",
+            "ItemName": "Toc",
+            "Path": "/products",
+            "PathName": "Products"
+        }
+    ]
+}
