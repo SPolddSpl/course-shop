@@ -14,7 +14,7 @@ function HeaderLinks(props) {
             {items.map((item) => {
                 return <div key={item.IconName} >
                     <RouterLink className={props.styles} to={`${path}${item.Path}`}>
-                        <Icon>{item.ImportName}</Icon>
+                        <Icon onClick={(e)=> {document.title = item.PathName}}>{item.ImportName}</Icon>
                     </RouterLink>
                 </div>
 

@@ -17,7 +17,9 @@ function Home() {
     let { path, url } = useRouteMatch();
     const [route, setRoute] = useState(window.location.pathname);
     const [menuItems, setMenuItems] = useState(JSON.parse(localStorage.getItem('menuItems')));
-
+    useEffect(() => {
+        document.title = 'Home';
+    }, [])
     return (
         <>
             <Header username={user.login} avatar={service.getFile(avatar)} />
