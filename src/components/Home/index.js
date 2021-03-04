@@ -13,7 +13,7 @@ function Home() {
     const [open, setOpen] = useState(false);
 
     const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')));
-    const [avatar, setAvatar] = useState(localStorage.getItem('avatar'));
+    const [avatar, setAvatar] = useState(user.avatar);
     let { path, url } = useRouteMatch();
     const [route, setRoute] = useState(window.location.pathname);
     const [menuItems, setMenuItems] = useState(JSON.parse(localStorage.getItem('menuItems')));

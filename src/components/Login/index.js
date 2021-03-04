@@ -63,9 +63,11 @@ function Login() {
         }
         const response = await userService.logIn(user);
         if (response) {
-            localStorage.setItem('loggedIn', true);
+
             const user = JSON.parse(localStorage.getItem('user'))
+
             await getMenuItems(user._id);
+            localStorage.setItem('loggedIn', true);
             setLoggedIn(true);
         }
 

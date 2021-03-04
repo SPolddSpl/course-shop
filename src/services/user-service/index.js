@@ -11,6 +11,7 @@ class UserService {
             const res = await axios.post(`${this.basePath}/user/login`, user);
             if (res.status === 201 || res.status === 200) {
                 localStorage.setItem('token', res.data.access_token)
+                localStorage.setItem('user', JSON.stringify(res.data.userdata))
                 return res.data;
             } else {
                 return alert(res.statusText);
@@ -55,7 +56,7 @@ class UserService {
     }
 
     getFile(filePath) {
-        return `${this.basePath}/files/${filePath}`
+        return `${this.basePath}/uploads/${filePath}`
     }
 
     async uploadFile(formData, userId) {

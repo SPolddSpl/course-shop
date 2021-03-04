@@ -77,8 +77,8 @@ function Register() {
         let response = await service.registerUser(data);
         if (JSON.parse(localStorage.getItem('user'))) {
             let avatarRes = await service.uploadFile(fd, response._id);
-            if(avatarRes){
-                let avatarPath = await service.updateUserAvatar({userId: avatarRes, fileEx: ''});
+            if (avatarRes) {
+                let avatarPath = await service.updateUserAvatar({ userId: avatarRes, fileEx: '' });
                 console.log(avatarPath)
                 localStorage.setItem('avatar', avatarPath.value);
                 setRegisterComplete(true);
@@ -168,7 +168,21 @@ function Register() {
                                 }}
                             >
                                 Sign Up
-              </Button>
+                            </Button>
+
+                            <Button
+                                type="submit"
+                                fullWidth
+                                variant="contained"
+                                color="primary"
+                                className={classes.submit}
+                                onClick={(e) => {
+                                    e.preventDefault()
+                                    setRegisterComplete(true);
+                                }}
+                            >
+                                Log In
+                            </Button>
                         </form>
                     </div>
                     <Box mt={5}>
