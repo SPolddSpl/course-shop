@@ -58,7 +58,7 @@ function Login() {
 
     async function sumbitHandle() {
         const user = {
-            login: login,
+            username: login,
             password: password
         }
         const response = await userService.logIn(user);

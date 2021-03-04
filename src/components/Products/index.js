@@ -12,12 +12,13 @@ import {
     CardMedia
 } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
+import ProductsService from '../../services/products-service';
 
 const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
         flexWrap: 'wrap',
-        justifyContent: 'space-around',
+        justifyContent: 'space-between',
         overflow: 'hidden',
         backgroundColor: theme.palette.background.paper,
     },
@@ -32,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Products() {
-    const service = new UserService();
+    const service = new ProductsService();
     const classes = useStyles();
     const [products, setProducts] = useState([]);
 
@@ -45,24 +46,27 @@ function Products() {
     if (products.length > 0) {
 
         return <>
-            <GridList style={{marginTop: 10}} cellHeight={450} className={classes.gridList} cols={5} spacing={5}>
+            <GridList style={{ marginTop: 10 }} cellHeight={450} className={classes.gridList} cols={3} spacing={10}>
                 {products.map((item) => {
-                    return <GridListTile key={item.id} cols={1} rows={1}>
+                    return <GridListTile key={item._id} cols={1}>
                         <Card className={classes.card}>
                             <CardActionArea>
                                 <CardMedia
                                     component="img"
                                     alt="Contemplative Reptile"
                                     height="150"
-                                    image="https://i.picsum.photos/id/34/150/150.jpg?hmac=RSvd6H7Ciu1LVG385QiorhKw5F2Ha_-ZK0NPt8zv8ME"
+                                    image={item.image}
                                     title="Contemplative Reptile"
                                 />
                                 <CardContent>
                                     <Typography gutterBottom variant="h5" component="h2">
-                                        {item.id}
+                                        Name {item.name}
                                     </Typography>
                                     <Typography variant="body2" color="textSecondary" component="p">
-                                        {item.title}
+                                        Description {item.description}
+                                    </Typography>
+                                    <Typography variant="body2" color="textSecondary" component="p">
+                                        Price {item.price}
                                     </Typography>
                                 </CardContent>
                             </CardActionArea>

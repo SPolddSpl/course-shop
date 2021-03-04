@@ -23,8 +23,10 @@ function Home() {
     return (
         <>
             <Header username={user.login} avatar={service.getFile(avatar)} />
-            <Grid container
+            <Grid
+                container
                 justify="center"
+                align="center"
                 style={{ marginTop: '10px' }}>
                 <Switch>
                     <Route path="/home/products" component={Products} />

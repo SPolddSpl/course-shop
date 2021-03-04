@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { ReactDOM } from "react-dom";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -9,6 +9,7 @@ import MenuIcon from "@material-ui/icons/Menu";
 import { makeStyles } from '@material-ui/core/styles';
 import { Avatar } from "@material-ui/core";
 import HeaderLinks from "./HeaderLinks";
+import { Redirect } from "react-router-dom";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -43,10 +44,17 @@ function Header(props) {
 
     const classes = useStyles();
     const [open, setOpen] = useState(false);
+    const [isLoggedOut, setLogOut] = useState(false);
+
+    useEffect(() => {
+        if (isLoggedOut) {
+            localStorage.setItem('loggedIn', false);
+        }
+    }, [isLoggedOut])
 
 
-    return (
-        <div className={classes.root}>
+    if (!isLoggedOut) {
+        return <div className={classes.root}>
             <AppBar position="static">
                 <Toolbar>
                     <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
@@ -58,12 +66,22 @@ function Header(props) {
                     <div className={classes.linksContainer}>
                         <HeaderLinks styles={classes.links} />
                     </div>
+                    <div>
+                        <Button onClick={(e) => {
+                            e.preventDefault()
+                            setLogOut(true);
+                        }}>LogOut</Button>
+                    </div>
                 </Toolbar>
             </AppBar>
         </div>
-    );
+    } else {
+      return  <Redirect to="/login" />
+    }
 
 }
+
+
 
 
 export default Header;

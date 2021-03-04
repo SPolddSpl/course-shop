@@ -1,14 +1,16 @@
+import { TagFaces } from '@material-ui/icons';
 import axios from 'axios';
 class UserService {
     constructor(props) {
         this.basePath = 'http://localhost:3000';
+        this.token = localStorage.getItem('token');
     }
 
     async logIn(user) {
         try {
             const res = await axios.post(`${this.basePath}/user/login`, user);
             if (res.status === 201 || res.status === 200) {
-                localStorage.setItem('user', JSON.stringify(res.data))
+                localStorage.setItem('token', res.data.access_token)
                 return res.data;
             } else {
                 return alert(res.statusText);
@@ -36,7 +38,11 @@ class UserService {
 
     async getUserMenu(id) {
         try {
-            const res = await axios.get(`${this.basePath}/user/menu/${id}`);
+            const res = await axios.get(`${this.basePath}/user/menu/${id}`, {
+                headers: {
+                    Authorization: `Bearer ${this.token}`
+                }
+            });
 
             if (res.status === 201 || res.status === 200) {
                 return res.data;
